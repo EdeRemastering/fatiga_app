@@ -49,17 +49,20 @@ public function store(Request $request)
         $request->validate([
             'user_id' => 'exists:users,id',
             'direccion_destino' => 'required',
-            'estado' => 'required|in:pendiente,en camino,entregado',
-            'repartidor_id' => 'nullable|exists:users,id'
+            'repartidor_id' => 'nullable|exists:users,id',
         ]);
     
-        try {
-            $domicilio->update($request->all());
-            return redirect()->route('domicilios.index')->with('success', 'Domicilio actualizado correctamente');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al actualizar el domicilio: ' . $e->getMessage());
-        }
+        // Establecer el estado directamente a 'en camino'
+        $domicilio->estado = 'en camino';
+    
+        // Actualizar el domicilio
+        $domicilio->update($request->only(['user_id', 'direccion_destino', 'repartidor_id']));
+    
+        return redirect()->route('domicilios.index')->with('success', 'Domicilio actualizado correctamente');
     }
+    
+    
+    
     
 
     public function destroy(Domicilio $domicilio)
