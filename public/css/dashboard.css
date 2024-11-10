@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    /* Variables de color */
+    --color-fondo: #f8f9fa;
+    --color-texto: #333;
+    --color-principal: red;
+    --color-primario-claro: red;
+    --color-borde: #e0e0e0;
+    --color-fondo-oscuro: #333;
+    --color-texto-oscuro: #f8f9fa;
+    --color-borde-oscuro: #555;
+    --color-sombra-verde: rgba(2, 146, 60, 0.5);
+    --color-hover: #cecbcb;
+}
+
+*::selection {
+    background-color: var(--color-principal);
+    color: var(--color-texto-oscuro);
+}
+body {
+    font-family: 'Work Sans', sans-serif;
+    background: var(--color-fondo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    height: fit-content;
+    color: var(--color-texto);
+    overflow-y: visible;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    color: red;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 1rem;
+}
+
+.action-buttons {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    color: var(--color-texto);
+    cursor: pointer;
+}
+
+.register {
+    color: var(--color-texto-oscuro) !important;
+    background-color: red;
+}
+
+.register:hover {
+    background-color: rgb(197, 1, 1);
+}
+
+.login {
+    background-color: var(--color-fondo);
+    border: 2px solid red;
+}
+
+.login:hover {
+    background-color: var(--color-borde);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        margin: 0; /* Eliminar márgenes para pantallas pequeñas */
+    }
+}
+
+.modo-oscuro body {
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-fondo-oscuro);
+}
+
+.modo-oscuro .login {
+    color: var(--color-texto-oscuro);
+    background-color: var(--color-oscuro);
+}
+
+.modo-oscuro .login:hover {
+    background-color: var(--color-borde-oscuro);
+}

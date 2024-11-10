@@ -1,0 +1,608 @@
+:root {
+    /* Variables de color */
+    --color-fondo: #f8f9fa;
+    --color-texto: #333;
+    --color-principal: red;
+    --color-primario-claro: red;
+    --color-borde: #e0e0e0;
+    --color-fondo-oscuro: #333;
+    --color-texto-oscuro: #f8f9fa;
+    --color-borde-oscuro: #555;
+    --color-sombra-verde: rgba(2, 146, 60, 0.5);
+    --color-hover: #cecbcb;
+}
+
+/* Selección de texto */
+*::selection {
+    background-color: var(--color-principal);
+    color: var(--color-texto-oscuro);
+}
+
+/* Estilos del body */
+body {
+    font-family: 'Work Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    animation: fadeIn .3s ease-in-out;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Estilos de las tablas */
+table {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid var(--color-borde);
+    color: #333 !important;
+ 
+}
+
+
+/* Estilos de la paginación */
+.pagination .page-link {
+    margin-top: 10px;
+    background-color: #ffffff;
+    color: var(--color-principal);
+    border: 1px solid var(--color-principal);
+    animation: fadeIn .5s ease-in-out;
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--color-principal);
+    border-color: var(--color-principal);
+    color: white;
+}
+.pagination .page-item .page-link:hover {
+    background-color: var(--color-principal);
+    color: white;
+}
+
+/* Estilos de la tabla con striping */
+.table.table-striped {
+    border: none !important;
+    box-shadow: none !important;
+}
+.table.table-striped th, .table.table-striped td {
+    border-top: 1px solid var(--color-borde) !important;
+}
+thead {
+    border-bottom: 2px solid var(--color-principal) !important;
+}
+
+/* Estilos de la barra lateral */
+.barra-lateral {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    color: var(--color-texto);
+    overflow-y: auto; /* Agrega scroll vertical */
+    padding-top: 20px;
+    border-right: 1px solid var(--color-borde);
+    animation: slideIn .5s ease-in-out;
+    transition: width 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 7px; /* Ancho de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del track */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #999; /* Color de la barra */
+    border-radius: 10px; /* Esquinas redondeadas */
+    transition: 13s all ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-principal); /* Color al pasar el ratón */
+    cursor: pointer;
+}
+.barra-lateral.minimizada {
+    width: 60px;
+}
+.barra-lateral h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+/* Estilos de los enlaces de la barra lateral */
+.barra-lateral a {
+    color: var(--color-texto);
+    text-decoration: none;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.barra-lateral a i {
+    font-size: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.icono-barra-lateral {
+    box-shadow: none;
+}
+
+.opcion-barra-navegacion {
+    border-radius: 5px;
+    position: relative;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.barra-lateral a:hover {
+    background-color: var(--color-hover);
+    border-radius: 5px;
+}
+.opcion-barra-navegacion::after {
+    content: '';
+    background-color: var(--color-primario-claro);
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .5s ease-in-out;
+}
+
+.opcion-barra-navegacion:hover::after {
+    width: 100%;
+}
+
+.opcion-barra-navegacion.active {
+    border-left: 5px solid var(--color-principal);
+}
+.barra-lateral .texto-barra-lateral {
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+}
+.minimizada .texto-barra-lateral {
+    display: none;
+}
+.minimizada a {
+    justify-content: center;
+}
+
+/* Estilos del contenido */
+.contenido {
+    margin-left: 200px;
+    padding: 1rem;
+    background-color: var(--color-fondo);
+    height: 100vh;
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+.contenido.minimizado {
+    margin-left: 60px;
+}
+
+/* Estilos de la barra de navegación */
+.barra-navegacion {
+    background-color: white;
+    color: #222;
+    margin-left: 200px;
+    height: 60px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-borde);
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.barra-navegacion button {
+    outline: none;
+}
+.barra-navegacion h2 {
+    font-weight: 600;
+    position: relative;
+}
+.barra-navegacion h2::after {
+    content: '';
+    background-color: var(--color-principal);
+    position: absolute;
+    width: 0%;
+    height: 5px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .3s ease-in-out;
+}
+.barra-navegacion h2:hover::after {
+    width: 100%;
+}
+.barra-navegacion.minimizada {
+    margin-left: 60px;
+}
+ 
+.barra-lateral h2 img {
+    opacity: 1;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+      
+    }
+}
+
+.barra-lateral.minimizada h2 img {
+    animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        width: 100px;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+      
+    }
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* Estilos de botones */
+.btn-success {
+    background: var(--color-fondo) !important;
+    border: 1px solid var(--color-primario-claro);
+    color: var(--color-primario-claro);
+    transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+.btn-success:hover {
+    box-shadow: inset 0 0 100px var(--color-principal) !important;
+}
+.btn-success:active {
+    background-color: var(--color-primario-claro);
+    box-shadow: inset 0 0 100px var(--color-principal);
+}
+
+.btn-danger {
+        color:red;
+        background-color: var(--color-fondo);
+    transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+.btn-danger:hover {
+    box-shadow: inset 0 0 5px red;
+
+}
+.btn-danger:active {
+    color: red;
+    box-shadow: inset 0 0 100px red;
+}
+.botonEstado, .botonEstadoTotal {
+    height: fit-content;
+    background-color: white !important;
+    color: var(--color-primario);
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.botonEstado:hover, .botonEstadoTotal:hover {
+    border: 1px solid var(--color-principal);
+    background-color: var(--color-principal) !important;
+    color: white;
+    box-shadow: 0 4px 8px rgba(57, 169, 0, 0.2);
+}
+
+.boton-crear {
+    background-color: var(--color-principal) !important;
+    border: none;
+    color: white;
+    width: fit-content !important;
+    margin-left: auto;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.boton-crear:hover {
+    background-color: var(--color-primario-claro);
+    box-shadow: 0 4px 8px rgba(0, 96, 169, 0.3);
+}
+
+/* Estilos para sección de estatus */
+.seccionEstatus {
+    width: 100%;
+    display: inline-flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    animation: fadeIn .5s ease-in-out;
+}
+
+/* Estilos para la barra de búsqueda */
+.dataTables_filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: fit-content;
+    margin-left: auto;
+}
+.dataTables_filter label {
+    font-size: 16px;
+    color: var(--color-principal);
+    display: flex;
+    align-items: center;
+}
+.dataTables_filter label input {
+    margin-left: 10px;
+    border: 1px solid var(--color-principal);
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+.dataTables_filter label input:focus {
+    border-color: var(--color-principal);
+    outline: none;
+    box-shadow: 0 0 5px var(--color-sombra-verde);
+}
+
+.dataTables_length {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+.dataTables_length select {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: auto;
+}
+.dataTables_length select option {
+    background-color: #222;
+    color: #fff;
+}
+.dataTables_paginate .paginate_button {
+    background-color: var(--color-borde); /* Cambia el color de fondo */
+    color: var(--color-texto); /* Cambia el color del texto */
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .3s all ease;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background-color: var(--color-primario-claro); /* Color al pasar el mouse */
+    color: white;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background-color:  var(--color-principal); /* Color del botón activo */
+    font-weight: bold;
+    color: white;
+}
+
+/* Hacer que la DataTable ocupe el 100% de ancho */
+table.dataTable {
+    width: 100% !important; /* Fuerza el 100% de ancho */
+    table-layout: auto; /* Permite ajustar el ancho de las columnas */
+}
+
+.dataTables_wrapper {
+    width: 100%; /* Hace que el contenedor de la DataTable también ocupe el 100% de ancho */
+}
+input[type="checkbox"] {
+    /* Tus estilos aquí */
+    width: 20px; /* Ejemplo: Cambiar el tamaño */
+    height: 20px; /* Ejemplo: Cambiar el tamaño */
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.form-check label {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.form-check input[type="checkbox"] {
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+input[readonly], select[readonly], textarea[readonly] {
+    background-color: var(--color-fondo); /* Cambia el color de fondo */
+    color:var(--color-texto); /* Cambia el color del texto */
+    cursor: not-allowed; /* Cambia el cursor */
+    opacity: 0.7; /* Ajusta la opacidad para dar un efecto visual */
+}
+
+.modo-oscuro body {
+    background-color: var(--color-fondo-oscuro);
+}
+
+.modo-oscuro  .contenedor-ver-elemento {
+    background-color: #444 !important
+}
+
+.modo-oscuro .botones-mostrar-elemento {
+   height: 30px;
+}
+
+/* Modo oscuro */
+.modo-oscuro {
+    background-color: var(--color-fondo-oscuro) !important;
+    color: var(--color-texto-oscuro) !important;
+}
+.modo-oscuro .barra-lateral {
+    background-color: #222;
+    color: white;
+}
+.modo-oscuro .barra-lateral a {
+    color: #f8f9fa;
+}
+.modo-oscuro .barra-lateral a:hover {
+    background-color: var(--color-fondo-oscuro);
+}
+
+.modo-oscuro .icono-barra-lateral {
+    filter: invert(0%);
+}
+
+.modo-oscuro .contenido {
+    background-color: var(--color-fondo-oscuro);
+    color: white !important;
+}
+.modo-oscuro .barra-navegacion {
+    background-color: #222;
+    color: #f8f9fa;
+    border-bottom: 1px solid #444;
+}
+.modo-oscuro .barra-navegacion button {
+    background-color: var(--color-borde-oscuro);
+    color: var(--color-texto-oscuro);
+    border: none;
+}
+
+.modo-oscuro .barra-navegacion button:active {
+    background-color: var(--color-borde-oscuro) !important;
+}
+
+.modo-oscuro .dropdown-menu {
+    background-color: var(--color-borde-oscuro);
+    color: var(--color-texto-oscuro);
+}
+.modo-oscuro table {
+    background-color: #444;
+    color: #f8f9fa !important;
+    border: 1px solid var(--color-borde-oscuro);
+}
+.modo-oscuro thead {
+    border-bottom: 2px solid var(--color-borde-oscuro);
+}
+.modo-oscuro .pagination .page-link {
+    background-color: #444;
+    color: #f8f9fa;
+    border: 1px solid var(--color-borde-oscuro);
+}
+.modo-oscuro .pagination .page-item.active .page-link {
+    background-color: var(--color-borde-oscuro);
+    color: #f8f9fa;
+}
+.modo-oscuro .btn-success {
+    background: var(--color-primario-claro) !important;
+    border: 1px solid var(--color-primario-claro);
+    color: var(--color-texto-oscuro);
+}
+
+.modo-oscuro .btn-success:hover {
+    color: var(--color-texto-oscuro);
+    box-shadow: none !important;
+}
+
+.modo-oscuro .btn-danger {
+    color:var(--color-fondo);
+    background-color: rgb(187, 36, 36);
+    transition: all .1s ease-in-out;
+}
+.modo-oscuro .btn-danger:hover {
+box-shadow: none;
+}
+.modo-oscuro .btn-danger:active {
+color: red;
+box-shadow: none;
+}
+
+.modo-oscuro .botonEstado, .modo-oscuro .botonEstadoTotal {
+    background-color: var(--color-texto) !important;
+    color: var(--color-texto-oscuro);
+}
+
+.modo-oscuro .botonEstado:hover, .botonEstadoTotal:hover {
+    background-color: var(--color-principal) !important;
+    color: white ;
+}
+
+.modo-oscuro .boton-crear {
+    background-color: var(--color-principal) !important;
+    border: none;
+    color: white;
+    width: 190px;
+    margin-left: auto;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.modo-oscuro .boton-crear:hover {
+    background-color: var(--color-primario-claro);
+    box-shadow: 0 4px 8px rgba(0, 96, 169, 0.3);
+}
+
+.modo-oscuro input[readonly], 
+.modo-oscuro select[readonly], 
+.modo-oscuro textarea[readonly] {
+    background-color:var(--color-fondo-oscuro); /* Fondo oscuro */
+    color: var(--color-texto-oscuro); /* Texto claro */
+    cursor: not-allowed;
+    opacity: 0.8; /* Ajuste de opacidad para dar un efecto visual */
+}
+
+
+
+.modo-oscuro .dataTables_paginate .paginate_button {
+    background-color: var(--color-borde-oscuro); /* Cambia el color de fondo */
+    color: var(--color-texto-oscuro); /* Cambia el color del texto */
+ 
+}
+
+.modo-oscuro .dataTables_paginate .paginate_button:hover {
+    background-color: var(--color-primario-claro); /* Color al pasar el mouse */
+    color: white;
+}
+
+.modo-oscuro .dataTables_paginate .paginate_button.current {
+    background-color:  var(--color-primario-claro); /* Color del botón activo */
+    font-weight: bold;
+    color: white;
+}
+.modo-oscuro .card-servicios {
+    background-color: var(--color-borde-oscuro);
+}
+
+.modo-oscuro .tab-content {
+    background-color: var(--color-fondo-oscuro);
+}
+
+.modo-oscuro .card {
+    background-color: var(--color-borde-oscuro);
+}
