@@ -14,7 +14,3 @@
 <script src="{{ asset('js/irAtras.js') }}"></script>
 <script src="{{ asset('js/alternarTema.js') }}"></script>
 <script src="{{ asset('js/vistaTransicion.js') }}"></script>
-<script src="{{ asset('js/configInputFecha.js') }}"></script>
-<script src="{{ asset('js/configInputHora.js') }}"></script>
-<script src="{{ asset('js/select.js') }}"></script>
-<script src="{{ asset('js/tituloPagina.js') }}"></script>

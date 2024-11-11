@@ -17,12 +17,11 @@
     <div class="card mb-3 p-3 col-md-3 mr-3">
         <h3>Domicilio #{{ $domicilio->id }}</h3>
         <p>Dirección: {{ $domicilio->direccion_destino }}</p>
-        <p>Id usuario que solicita: {{ $domicilio->user_id }}</p>
+        <p>Id cliente: {{ $domicilio->user_id }}</p>
+        
         <form action="{{ route('domicilios.update', $domicilio->id) }}" method="POST">
             @csrf
             @method('PUT')
-
-            <!-- Otros campos del formulario -->
 
             <label for="repartidor_id">Asignar Repartidor:</label>
             <select name="repartidor_id" id="repartidor_id" required>
@@ -45,7 +44,8 @@
     <div class="card mb-3 p-3">
         <h3>Domicilio #{{ $domicilio->id }}</h3>
         <p>Dirección: {{ $domicilio->direccion_destino }}</p>
-        <p>Atendido por: {{ $domicilio->user_id }}</p>
+        <p>Cliente: {{ $domicilio->user->name }}</p>
+        <p>Atendido por: {{ $domicilio->user ? $domicilio->repartidor->name : 'Sin asignar' }}</p>
     </div>
     @endforeach
 </div>
@@ -55,10 +55,12 @@
     <div class="card mb-3 p-3">
         <h3>Domicilio #{{ $domicilio->id }}</h3>
         <p>Dirección: {{ $domicilio->direccion_destino }}</p>
-        <p>Atendido por: {{ $domicilio->user_id }}</p>
+        <p>Cliente: {{ $domicilio->user->name }}</p>
+        <p>Atendido por: {{ $domicilio->user ? $domicilio->repartidor->name : 'Sin asignar' }}</p>
     </div>
     @endforeach
 </div>
+
 
 <script>
     function showTab(tabName) {

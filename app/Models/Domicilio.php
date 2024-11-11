@@ -18,4 +18,9 @@ class Domicilio extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function repartidor()
+    {
+        return $this->belongsTo(User::class, 'repartidor_id');
+    }
 }

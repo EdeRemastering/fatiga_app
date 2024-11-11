@@ -1,29 +1,31 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Repartidor;
-use App\Models\Solicitud;
-
+use App\Models\Domicilio; // Asegúrate de tener este modelo
 use Illuminate\Http\Request;
 
 class RepartidorController extends Controller
 {
-    // Mostrar todos los repartidoresuse App\Models\Repartidor;
+    // Mostrar todos los repartidores
     public function index()
     {
-        // Obtener todos los repartidores que tienen el rol de 'repartidor'
+        // Obtener todos los repartidores
         $repartidores = Repartidor::where('rol', 'repartidor')->get();
     
         // Agregar el estado de cada repartidor (Libre u Ocupado)
         foreach ($repartidores as $repartidor) {
-            // Buscar la última solicitud asociada al repartidor
-            $solicitud = Solicitud::where('user_id', $repartidor->id)
-                                  ->latest()
-                                  ->first();
-    
-            // Si la solicitud está ocupada, marcar como ocupado, si no, libre
-            $repartidor->estado = $solicitud && $solicitud->estado == 'en camino' ? 'Ocupado' : 'Libre';
+            // Buscar los domicilios asociados al repartidor
+            $domicilios = Domicilio::where('repartidor_id', $repartidor->id)
+                                   ->whereIn('estado', ['pendiente', 'en camino']) // Buscar solo domicilios pendientes o en camino
+                                   ->get();
+
+            // Si el repartidor tiene domicilios pendientes o en camino, está ocupado
+            if ($domicilios->count() > 0) {
+                $repartidor->estado = 'Ocupado';
+            } else {
+                $repartidor->estado = 'Libre'; // Si no tiene domicilios en estado pendiente o en camino, está libre
+            }
         }
     
         // Pasar los repartidores con su estado a la vista
@@ -33,7 +35,7 @@ class RepartidorController extends Controller
     // Mostrar el detalle de un repartidor específico
     public function show($id)
     {
-        $repartidor = Repartidor::obtenerRepartidorPorId($id);
+        $repartidor = Repartidor::findOrFail($id);
         return view('repartidores.show', compact('repartidor'));
     }
 

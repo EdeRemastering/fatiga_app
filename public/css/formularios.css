@@ -42,6 +42,7 @@
     padding: 50px;
     width: 100%;
     box-sizing: border-box;
+    justify-content: center;
 }
 
 .two-columns {
@@ -75,27 +76,10 @@ textarea::placeholder {
     color: #6c757d; /* Color de placeholder ajustado para visibilidad */
 }
 
-/* Botón */
-.btn-primary {
-    background-color: #39A900; /* Color verde success */
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 16px;
-    font-weight: 600;
-    grid-column: span 2; /* Botón ocupa ambas columnas */
-    padding: 12px 20px;
-    width: 100%;
+.btn-container {
     text-align: center;
 }
 
-.btn-primary:hover {
-    background-color: #007832; /* Color más oscuro en hover */
-}
-
-.btn-success {
-    background-color: #39A900;
-}
 
 /* Estilo personalizado para el select */
 select {
