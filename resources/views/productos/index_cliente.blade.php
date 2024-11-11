@@ -3,9 +3,9 @@
 @section('content')
 <div class="productos-container">
     @foreach($productos as $producto)
-    <div class="card">
-        <h3 class="card-title">{{ $producto->nombre }}</h3>
-        <img src="{{ asset($producto->imagen) }}" alt="{{ $producto->nombre }}" width="200">
+    <div class="card" style="display:flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h3 class="card-title" style="width: 100%">{{ $producto->nombre }}</h3>
+        <img src="{{ asset('public/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" width="200">
         <p>{{ $producto->descripcion }}</p>
         <p><strong>Precio:</strong> ${{ $producto->precio }}</p>
         <button onclick="mostrarFormulario('{{ $producto->id }}')" class="btn btn-danger mb-3" style="width: fit-content;">Hacer Domicilio</button>

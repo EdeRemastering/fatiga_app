@@ -78,13 +78,13 @@ class ProductoController extends Controller
                 'nombre' => 'required',
                 'precio' => 'required|numeric',
                 'descripcion' => 'nullable',
-                'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validación de imagen
+                'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:6000', // Validación de imagen
             ]);
 
             if ($request->hasFile('imagen')) {
                 // Guardar la nueva imagen y actualizar la ruta
                 $rutaImagen = $request->file('imagen')->store('public/imagenes_productos');
-                $producto->ruta_imagen = str_replace('public/', 'storage/', $rutaImagen);
+                $producto->imagen = str_replace('public/', 'storage/', $rutaImagen);
             }
 
             $producto->nombre = $request->nombre;

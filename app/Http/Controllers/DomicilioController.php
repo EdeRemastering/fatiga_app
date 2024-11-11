@@ -93,7 +93,9 @@ class DomicilioController extends Controller
     {
         try {
             $domicilios = Domicilio::where('user_id', Auth::user()->id)->get();
-            return view('domicilios.index_cliente', compact('domicilios'));
+            $repartidores = User::where('rol', 'repartidor')->get();
+
+            return view('domicilios.index_cliente', compact('domicilios', 'repartidores'));
 
         } catch (\Exception $e) {
             return redirect()->route('domicilios.index')->with('error', 'Hubo un error al cargar tus domicilios: ' . $e->getMessage());
