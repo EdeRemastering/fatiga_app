@@ -41,7 +41,7 @@
 
 <div id="en-camino" class="tab-content" style="display: none;">
     @foreach($enCamino as $domicilio)
-    <div class="card mb-3 p-3">
+    <div class="card mb-3 p-3 col-md-3 mr-3">
         <h3>Domicilio #{{ $domicilio->id }}</h3>
         <p>Dirección: {{ $domicilio->direccion_destino }}</p>
         <p>Cliente: {{ $domicilio->user->name }}</p>
@@ -52,7 +52,7 @@
 
 <div id="entregados" class="tab-content" style="display: none;">
     @foreach($entregados as $domicilio)
-    <div class="card mb-3 p-3">
+    <div class="card mb-3 p-3 col-md-3 mr-3">
         <h3>Domicilio #{{ $domicilio->id }}</h3>
         <p>Dirección: {{ $domicilio->direccion_destino }}</p>
         <p>Cliente: {{ $domicilio->user->name }}</p>

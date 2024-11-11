@@ -23,12 +23,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        // Rutas para usuarios
+    // Rutas para usuarios
     Route::resource('users', UserController::class);
 
-        // routes/web.php
+    // routes/web.php
 
-Route::get('/domicilios/cliente', [DomicilioController::class, 'indexCliente'])->name('domicilios.index_cliente');
+
+    Route::get('/domicilios/repartidor', [DomicilioController::class, 'indexRepartidor'])->name('domicilios.index_repartidor');
+    Route::put('/domicilios/{domicilio}/entregado', [DomicilioController::class, 'marcarEntregado'])->name('domicilios.marcarEntregado');
+
+    Route::get('/domicilios/cliente', [DomicilioController::class, 'indexCliente'])->name('domicilios.index_cliente');
 
     // Rutas para domicilios
     Route::resource('domicilios', DomicilioController::class);
@@ -36,18 +40,18 @@ Route::get('/domicilios/cliente', [DomicilioController::class, 'indexCliente'])-
     // Rutas para productos
     // routes/web.php
 
-Route::get('/productos/cliente', [ProductoController::class, 'indexCliente'])->name('productos.index_cliente');
+    Route::get('/productos/cliente', [ProductoController::class, 'indexCliente'])->name('productos.index_cliente');
 
     Route::resource('productos', ProductoController::class);
 
     // Rutas para solicitudes
     Route::resource('solicitudes', SolicitudController::class);
 
-    
+
     // Rutas para solicitudes
     Route::resource('repartidores', controller: RepartidorController::class);
 });
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

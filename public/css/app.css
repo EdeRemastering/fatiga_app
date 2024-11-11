@@ -442,6 +442,29 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
+.tabs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.tabs button {
+    border-radius: 5px;
+}
+
+.card {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    text-transform: capitalize;
+}
+
+.badge {
+    color: white;
+}
 input[readonly], select[readonly], textarea[readonly] {
     background-color: var(--color-fondo); /* Cambia el color de fondo */
     color:var(--color-texto); /* Cambia el color del texto */
@@ -605,4 +628,5 @@ box-shadow: none;
 
 .modo-oscuro .card {
     background-color: var(--color-borde-oscuro);
+
 }

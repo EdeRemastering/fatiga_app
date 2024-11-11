@@ -98,7 +98,49 @@ class DomicilioController extends Controller
             return view('domicilios.index_cliente', compact('domicilios', 'repartidores'));
 
         } catch (\Exception $e) {
+            return redirect()->route('dashboard')->with('error', 'Hubo un error al cargar tus domicilios: ' . $e->getMessage());
+        }
+    }
+    public function indexRepartidor()
+    {
+        try {
+            // Obtener solo los domicilios que han sido asignados al repartidor logueado
+            $pendientes = Domicilio::where('estado', 'pendiente')
+                ->where('repartidor_id', Auth::user()->id)
+                ->get();
+    
+            $entregados = Domicilio::where('estado', 'entregado')
+                ->where('repartidor_id', Auth::user()->id)
+                ->get();
+    
+            return view('domicilios.index_repartidor', compact('pendientes', 'entregados'));
+        } catch (\Exception $e) {
             return redirect()->route('domicilios.index')->with('error', 'Hubo un error al cargar tus domicilios: ' . $e->getMessage());
         }
     }
+    
+    
+    public function marcarEntregado(Domicilio $domicilio)
+    {
+        try {
+            // Asegúrate de que el domicilio sea del repartidor logueado y esté pendiente
+            if ($domicilio->repartidor_id != Auth::user()->id) {
+                return redirect()->route('domicilios.index')->with('error', 'No tienes permiso para actualizar este domicilio.');
+            }
+    
+            if ($domicilio->estado !== 'pendiente') {
+                return redirect()->route('domicilios.index')->with('error', 'Este domicilio no está pendiente.');
+            }
+    
+            // Actualiza el estado a "entregado"
+            $domicilio->estado = 'entregado';
+            $domicilio->save();
+    
+            return redirect()->route('domicilios.indexRepartidor')->with('success', 'Domicilio marcado como entregado.');
+        } catch (\Exception $e) {
+            return redirect()->route('domicilios.indexRepartidor')->with('error', 'Hubo un error al actualizar el domicilio: ' . $e->getMessage());
+        }
+    }
+    
+    
 }

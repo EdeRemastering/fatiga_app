@@ -83,6 +83,13 @@
         <a href="" class="opcion-barra-navegacion {{ Request::is('dd') ? 'active' : '' }}">
             <i class="bi bi-gear"></i> <span class="texto-barra-lateral">Configuración</span>
         </a>
+        @elseif(Auth::user()->rol == 'repartidor')
+  
+
+        <a href="{{ route('domicilios.index_repartidor') }}" class="opcion-barra-navegacion {{ Request::is('*domicilios*') ? 'active' : '' }}">
+            <i class="bi bi-bicycle"></i> <span class="texto-barra-lateral">Domicilios</span>
+        </a>
+
     @elseif(Auth::user()->rol == 'cliente')
         <!-- Enlaces para cliente -->
         <a href="{{ route('productos.index_cliente') }}" class="opcion-barra-navegacion {{ Request::is('*productos*') ? 'active' : '' }}">
