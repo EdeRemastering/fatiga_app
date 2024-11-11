@@ -1,14 +1,15 @@
-
-
 @extends('layouts.app')
-
 
 @section('content')
 <!-- resources/views/productos/create.blade.php -->
 
 <h2>Crear Nuevo Producto</h2>
-<form action="{{ route('productos.store') }}" method="POST">
+<form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
+
+    <label for="imagen">Imagen del Producto:</label>
+    <input type="file" name="imagen" id="imagen" accept="image/*"><br>
+
     <label for="nombre">Nombre:</label>
     <input type="text" name="nombre" required><br>
 
@@ -16,17 +17,17 @@
     <textarea name="descripcion"></textarea><br>
 
     <label for="precio">Precio:</label>
-    <input type="number" name="precio" required id="precio" min="0" step="1" oninput="checkMaxLength(this)" />
+    <input type="number" name="precio" required id="precio" min="0" step="1" oninput="checkMaxLength(this)"><br>
 
-<script>
-    function checkMaxLength(input) {
-        if (input.value.length > 10) {
-            input.value = input.value.slice(0, 10); // Limita a 10 dígitos
+    <script>
+        function checkMaxLength(input) {
+            if (input.value.length > 10) {
+                input.value = input.value.slice(0, 10); // Limita a 10 dígitos
+            }
         }
-    }
-</script>
+    </script>
+
     <button type="submit" class="btn btn-danger">Crear Producto</button>
 </form>
-  
-@endsection
 
+@endsection

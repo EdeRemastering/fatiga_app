@@ -23,7 +23,7 @@ class RepartidorController extends Controller
                                   ->first();
     
             // Si la solicitud está ocupada, marcar como ocupado, si no, libre
-            $repartidor->estado = $solicitud && $solicitud->estado == 'Ocupado' ? 'Ocupado' : 'Libre';
+            $repartidor->estado = $solicitud && $solicitud->estado == 'en camino' ? 'Ocupado' : 'Libre';
         }
     
         // Pasar los repartidores con su estado a la vista

@@ -10,55 +10,111 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::all();
-        return view('productos.index', compact('productos'));
+        try {
+            $productos = Producto::all();
+            return view('productos.index', compact('productos'));
+        } catch (\Exception $e) {
+            return redirect()->route('productos.index')->with('error', 'Hubo un problema al cargar los productos: ' . $e->getMessage());
+        }
     }
 
- 
     public function create()
-{
-    return view('productos.create');
-}
+    {
+        try {
+            return view('productos.create');
+        } catch (\Exception $e) {
+            return redirect()->route('productos.index')->with('error', 'Hubo un problema al cargar el formulario de creación: ' . $e->getMessage());
+        }
+    }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'nombre' => 'required',
-        'precio' => 'required|numeric',
-        'descripcion' => 'nullable',
-    ]);
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'nombre' => 'required',
+                'precio' => 'required|numeric',
+                'descripcion' => 'nullable',
+                'imagen' => 'nullable|image|mimes:jpg,jpeg,png', // Validación para la imagen
+            ]);
 
-    Producto::create($request->all());
+      
+            $rutaImagen = null;
 
-    return redirect()->route('productos.index')->with('success', 'Producto creado correctamente');
-}
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+                // Guardar directamente en public/imagenes_productos
+                $imagen->move(public_path('imagenes_productos'), $nombreImagen);
+                // Guardar solo la ruta relativa
+                $rutaImagen = 'imagenes_productos/' . $nombreImagen;
+            }
+
+            Producto::create([
+                'nombre' => $request->nombre,
+                'precio' => $request->precio,
+                'descripcion' => $request->descripcion,
+                'imagen' => $rutaImagen,
+            ]);
+
+            return redirect()->route('productos.index')->with('success', 'Producto creado correctamente');
+        } catch (\Exception $e) {
+            return redirect()->route('productos.create')->with('error', 'Hubo un problema al crear el producto: ' . $e->getMessage());
+        }
+    }
 
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('producto'));
+        try {
+            return view('productos.edit', compact('producto'));
+        } catch (\Exception $e) {
+            return redirect()->route('productos.index')->with('error', 'Hubo un problema al cargar el formulario de edición: ' . $e->getMessage());
+        }
     }
 
     public function update(Request $request, Producto $producto)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'precio' => 'required|numeric',
-            'descripcion' => 'nullable',
-        ]);
+        try {
+            $request->validate([
+                'nombre' => 'required',
+                'precio' => 'required|numeric',
+                'descripcion' => 'nullable',
+                'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validación de imagen
+            ]);
 
-        $producto->update($request->all());
+            if ($request->hasFile('imagen')) {
+                // Guardar la nueva imagen y actualizar la ruta
+                $rutaImagen = $request->file('imagen')->store('public/imagenes_productos');
+                $producto->ruta_imagen = str_replace('public/', 'storage/', $rutaImagen);
+            }
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente');
+            $producto->nombre = $request->nombre;
+            $producto->precio = $request->precio;
+            $producto->descripcion = $request->descripcion;
+            $producto->save();
+
+            return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente');
+        } catch (\Exception $e) {
+            return redirect()->route('productos.edit', $producto->id)->with('error', 'Hubo un problema al actualizar el producto: ' . $e->getMessage());
+        }
     }
 
     public function destroy(Producto $producto)
     {
-        $producto->delete();
-
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente');
+        try {
+            $producto->delete();
+            return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente');
+        } catch (\Exception $e) {
+            return redirect()->route('productos.index')->with('error', 'Hubo un problema al eliminar el producto: ' . $e->getMessage());
+        }
     }
-    public function indexCliente() {
-        $productos = Producto::all();
-        return view('productos.index_cliente', compact('productos'));
+
+    public function indexCliente()
+    {
+        try {
+            $productos = Producto::all();
+            return view('productos.index_cliente', compact('productos'));
+        } catch (\Exception $e) {
+            return redirect()->route('productos.index')->with('error', 'Hubo un problema al cargar los productos para el cliente: ' . $e->getMessage());
+        }
     }
 }
