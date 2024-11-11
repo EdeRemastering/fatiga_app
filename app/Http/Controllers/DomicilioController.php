@@ -36,6 +36,7 @@ class DomicilioController extends Controller
             // Crear un nuevo domicilio
             $domicilio = new Domicilio();
             $domicilio->producto_id = $request->producto_id;
+            $domicilio->user_id = Auth::user()->id;
             $domicilio->direccion_destino = $request->direccion_destino;
             $domicilio->estado = 'pendiente'; // Estado inicial
             $domicilio->save();
